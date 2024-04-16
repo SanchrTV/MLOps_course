@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Установка рабочего каталога для всех стадий
+        WORKSPACE_PATH = 'lab2'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Клонирование Git репозитория и переход в нужный подкаталог
+                dir("${env.WORKSPACE_PATH}") {
+                    git branch: 'main',
+                        url: 'git@github.com:SanchrTV/MLOps_course.git'
+                }
+            }
+        }
+        
+        stage('Fetch Data') {
+            steps {
+                dir("${env.WORKSPACE_PATH}") {
+                    // Запуск скрипта для скачивания данных
+                    sh 'python3 fetch_data.py'
+                }
+            }
+        }
+        
+        stage('Preprocess Data') {
+            steps {
+                dir("${env.WORKSPACE_PATH}") {
+                    // Запуск скрипта предобработки данных
+                    sh 'python3 preprocess_data.py'
+                }
+            }
+        }
+        
+        stage('Train Model') {
+            steps {
+                dir("${env.WORKSPACE_PATH}") {
+                    // Запуск скрипта обучения модели
+                    sh 'python3 train_model.py'
+                }
+            }
+        }
+        
+        stage('Test Model') {
+            steps {
+                dir("${env.WORKSPACE_PATH}") {
+                    // Запуск скрипта тестирования модели
+                    sh 'python3 test_model.py'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            // Очистка рабочего пространства после завершения сборки
+            cleanWs()
+        }
+    }
+}
