@@ -18,17 +18,17 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://your-repository-url.git
-   cd your-repository-directory
+   git clone https://github.com/SanchrTV/MLOps_course.git
+   cd MLOps_course/lab3
    ```
 2. Соберите Docker образ:
-  ```bash
-  docker build -t iris-classifier .
-  ```
+   ```bash
+   docker build -t iris-classifier .
+   ```
 3. Запустите контейнер:
-  ```bash
-  docker run -p 5000:5000 iris-classifier
-  ```
+   ```bash
+   docker run -p 5000:5000 iris-classifier
+   ```
 
 После выполнения этих шагов, сервис будет доступен по адресу http://localhost:5000/.
 
