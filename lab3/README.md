@@ -1,1 +1,45 @@
+# Iris Classifier Microservice
 
+## Описание проекта
+Этот проект включает в себя микросервис на основе Flask для классификации видов цветков ириса. Модель машинного обучения, используемая в проекте, обучена с использованием датасета Iris от UCI. Проект развертывается в Docker контейнере для упрощения установки и совместимости.
+
+## Технологии
+- Python 3.8
+- Flask
+- Docker
+- scikit-learn
+
+## Установка и запуск
+
+### Предварительные требования
+Убедитесь, что на вашей машине установлен Docker. Инструкции по установке Docker можно найти на официальном сайте [Docker](https://docs.docker.com/get-docker/).
+
+### Сборка и запуск Docker контейнера
+
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://your-repository-url.git
+   cd your-repository-directory
+   ```
+2. Соберите Docker образ:
+  ```bash
+  docker build -t iris-classifier .
+  ```
+3. Запустите контейнер:
+  ```bash
+  docker run -p 5000:5000 iris-classifier
+  ```
+
+После выполнения этих шагов, сервис будет доступен по адресу http://localhost:5000/.
+
+## Использование
+
+Для получения предсказаний отправьте POST запрос на /predict с JSON содержащим признаки ириса. Пример использования с помощью curl:
+```bash
+curl -X POST http://localhost:5000/predict -H "Content-Type: application/json" -d '{"features": [5.1, 3.5, 1.4, 0.2]}'
+```
+
+Вы получите ответ в формате JSON, например:
+```json
+{"prediction": 0}
+```
